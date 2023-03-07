@@ -9,7 +9,7 @@ Debug.WriteLine($"[{DateTime.UtcNow.ToString("u")}] Start {Process.GetCurrentPro
 
 IConfiguration config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("Config/appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("Config/appsettings.json", false, true)
     .Build();
 
 Host.CreateDefaultBuilder(args)
