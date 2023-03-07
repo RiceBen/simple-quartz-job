@@ -27,8 +27,7 @@ Host.CreateDefaultBuilder(args)
             {
                 tp.MaxConcurrency = int.Parse(hostContext.Configuration["Scheduler:MaxConcurrency"] ?? "10");
             });
-
-            quartz.AddJobAndTrigger<HealthyCheckJob>(hostContext.Configuration);
+            quartz.AddJobsAndTriggerAll(hostContext.Configuration);
         });
 
         services.AddQuartzHostedService(options =>
