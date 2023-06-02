@@ -25,7 +25,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
             opts.WithIdentity(jobKey)
                 .WithDescription(jobSettings.Description)
                 .DisallowConcurrentExecution(jobSettings.DisallowConcurrentExecution));
-
+        
         quartz.AddTrigger(opts => opts
             .ForJob(jobKey)
             .WithIdentity(jobName + "-trigger")
@@ -58,6 +58,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         {
             var genericMethod = baseMethod.MakeGenericMethod(job);
             genericMethod.Invoke(null, new object?[] { quartz, config });
+            
         }
     }
 }
