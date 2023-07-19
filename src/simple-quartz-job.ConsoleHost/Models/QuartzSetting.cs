@@ -2,10 +2,18 @@
 
 public class QuartzSetting
 {
+    /// <summary>
+    /// Job's cron setting
+    /// </summary>
+    /// <remarks>
+    /// Reference: https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html
+    /// </remarks>
     public string Cron { get; set; }
 
     public string Description { get; set; }
 
+    public bool Enable { get; set; }
+    
     public bool DisallowConcurrentExecution { get; set; }
     
     /// <summary>

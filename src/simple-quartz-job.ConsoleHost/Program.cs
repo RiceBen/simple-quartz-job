@@ -14,7 +14,7 @@ public class Program
     public static async Task Main(string[] args)
     {
         Debug.WriteLine(
-            $"[{DateTime.UtcNow.ToString("u")}] Start {Process.GetCurrentProcess().MainModule?.ModuleName}!");
+            $"[{DateTime.UtcNow:u}] Start {Process.GetCurrentProcess().MainModule?.ModuleName}!");
 
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())

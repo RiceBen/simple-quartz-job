@@ -12,7 +12,7 @@ public abstract class BaseJob : IJob
         Logger = logger;
     }
 
-    protected abstract Task ExecuteCore(IJobExecutionContext context);
+    protected abstract Task ExecuteCore(IJobExecutionContext context, DateTime executionTime);
 
     public async Task Execute(IJobExecutionContext context)
     {
@@ -28,7 +28,7 @@ public abstract class BaseJob : IJob
         try
         {
             Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] StartTime:{currentTime:u}");
-            await ExecuteCore(context);
+            await ExecuteCore(context, currentTime);
             Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] EndTime: {DateTime.UtcNow:u}, Time duration: {(DateTime.UtcNow-currentTime).TotalMilliseconds}");
         }
         catch (Exception ex)
