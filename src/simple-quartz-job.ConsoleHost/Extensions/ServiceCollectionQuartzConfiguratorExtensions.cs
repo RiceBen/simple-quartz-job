@@ -15,7 +15,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
     {
         var jobName = typeof(T).Name;
         var configKey = $"Quartz:{jobName}";
-
+        
         var jobSettings = config.GetSection(configKey).Get<QuartzSetting>();
 
         if (jobSettings is null) throw new Exception($"No Cron schedule found for job in configuration at {configKey}");
@@ -27,7 +27,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
             opts.WithIdentity(jobKey)
                 .WithDescription(jobSettings.Description)
                 .DisallowConcurrentExecution(jobSettings.DisallowConcurrentExecution));
-
+        
         quartz.AddTrigger(opts => opts
             .ForJob(jobKey)
             .WithIdentity(jobName + "-trigger")
@@ -39,8 +39,8 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         this IServiceCollectionQuartzConfigurator quartz,
         IConfiguration config)
     {
-        var serviceAssembly = Assembly.Load("simple-quartz-job");
-
+        var serviceAssembly = typeof(BaseJob).Assembly;
+        
         var jobTypes = serviceAssembly.GetTypes()
             .Where(allTypes =>
                 typeof(BaseJob).IsAssignableFrom(allTypes)

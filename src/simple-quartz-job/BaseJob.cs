@@ -29,7 +29,7 @@ public abstract class BaseJob : IJob
         {
             Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] StartTime:{currentTime:u}");
             await ExecuteCore(context, currentTime);
-            Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] EndTime: {DateTime.UtcNow:u}, Time duration: {(DateTime.UtcNow-currentTime).TotalMilliseconds}");
+            Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] EndTime: {DateTime.UtcNow:u}, Time duration: {(DateTime.UtcNow-currentTime).TotalSeconds} sec.");
         }
         catch (Exception ex)
         {

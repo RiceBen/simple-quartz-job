@@ -1,9 +1,7 @@
-﻿using System.Configuration;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Quartz;
 using simple_quartz_job;
 using simple_quartz_job.ConsoleHost.Extensions;
@@ -36,7 +34,6 @@ public class Program
                     quartz.MisfireThreshold = new TimeSpan(60000);
                     quartz.MaxBatchSize = 5;
                     quartz.UseTimeZoneConverter();
-                    quartz.UseMicrosoftDependencyInjectionJobFactory();
                     quartz.UseSimpleTypeLoader();
                     quartz.UseInMemoryStore();
                     quartz.UseDefaultThreadPool(tp =>
@@ -44,7 +41,7 @@ public class Program
                         tp.MaxConcurrency =
                             int.Parse(hostContext.Configuration["Quartz:Scheduler:MaxConcurrency"] ?? "5");
                     });
-
+                    
                     quartz.AddJobsAndTriggerAll(hostContext.Configuration);
                 });
 
