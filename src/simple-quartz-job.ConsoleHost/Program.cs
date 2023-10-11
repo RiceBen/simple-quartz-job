@@ -41,7 +41,7 @@ public class Program
                         tp.MaxConcurrency =
                             int.Parse(hostContext.Configuration["Quartz:Scheduler:MaxConcurrency"] ?? "5");
                     });
-                    
+
                     quartz.AddJobsAndTriggerAll(hostContext.Configuration);
                 });
 

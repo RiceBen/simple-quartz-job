@@ -1,8 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Quartz;
-using Quartz.Logging;
-using simple_quartz_job.ConsoleHost.Models;
 
 namespace simple_quartz_job.ConsoleHost.Extensions;
 
@@ -15,7 +12,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
     {
         var jobName = typeof(T).Name;
         var configKey = $"Quartz:{jobName}";
-        
+
         var jobSettings = config.GetSection(configKey).Get<QuartzSetting>();
 
         if (jobSettings is null) throw new Exception($"No Cron schedule found for job in configuration at {configKey}");
@@ -27,7 +24,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
             opts.WithIdentity(jobKey)
                 .WithDescription(jobSettings.Description)
                 .DisallowConcurrentExecution(jobSettings.DisallowConcurrentExecution));
-        
+
         quartz.AddTrigger(opts => opts
             .ForJob(jobKey)
             .WithIdentity(jobName + "-trigger")
@@ -40,11 +37,11 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         IConfiguration config)
     {
         var serviceAssembly = typeof(BaseJob).Assembly;
-        
+
         var jobTypes = serviceAssembly.GetTypes()
             .Where(allTypes =>
                 typeof(BaseJob).IsAssignableFrom(allTypes)
-                && allTypes.IsAbstract == false);
+                && allTypes.IsAbstract is false);
 
         var baseMethod = typeof(ServiceCollectionQuartzConfiguratorExtensions).GetMethod(
             nameof(AddJobAndTrigger));

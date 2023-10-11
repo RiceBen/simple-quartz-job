@@ -26,4 +26,5 @@
         <ProjectReference Include="..\simple-quartz-job\simple-quartz-job.csproj" />
     </ItemGroup>
 
+
 </Project>
