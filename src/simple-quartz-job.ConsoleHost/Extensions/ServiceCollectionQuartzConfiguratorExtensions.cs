@@ -29,6 +29,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         quartz.AddTrigger(opts => opts
             .ForJob(jobKey)
             .WithIdentity(jobName + "-trigger")
+            .WithPriority(jobSettings.Priority)
             .WithCronSchedule(jobSettings.Cron));
     }
 
