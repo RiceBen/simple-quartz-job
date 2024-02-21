@@ -14,7 +14,7 @@ public class POCRecurringJob : BaseJob
         _logger = logger;
     }
 
-    protected override async Task ExecuteCore(IJobExecutionContext context)
+    protected override async Task ExecuteCore(IJobExecutionContext context, DateTime executionTime)
     {
         _logger.LogInformation(
             $"[{DateTime.UtcNow:u}][{await _serviceProvider.GetServiceName()}][{context.Trigger.JobKey}] POC.");

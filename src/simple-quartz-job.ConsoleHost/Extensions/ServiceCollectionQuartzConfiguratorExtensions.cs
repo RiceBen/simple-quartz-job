@@ -20,6 +20,8 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
 
         if (jobSettings is null) throw new Exception($"No Cron schedule found for job in configuration at {configKey}");
 
+        if (jobSettings.Enable == false) return;
+
         var jobKey = new JobKey(jobName);
         quartz.AddJob<T>(opts =>
             opts.WithIdentity(jobKey)
@@ -48,10 +50,8 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
             nameof(AddJobAndTrigger));
 
         if (baseMethod is null)
-        {
             throw new ApplicationException(
                 $"Cannot find method {nameof(AddJobAndTrigger)} in {nameof(ServiceCollectionQuartzConfiguratorExtensions)} class");
-        }
 
         foreach (var job in jobTypes)
         {
