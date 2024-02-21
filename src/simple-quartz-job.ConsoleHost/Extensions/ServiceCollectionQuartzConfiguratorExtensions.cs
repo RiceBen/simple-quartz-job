@@ -25,12 +25,12 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
             opts.WithIdentity(jobKey)
                 .WithDescription(jobSettings.Description)
                 .DisallowConcurrentExecution(jobSettings.DisallowConcurrentExecution));
-        
+
         quartz.AddTrigger(opts => opts
             .ForJob(jobKey)
             .WithIdentity(jobName + "-trigger")
             .WithPriority(jobSettings.Priority)
-            .WithCronSchedule(jobSettings.Cron));
+            .WithCronSchedule(jobSettings.Cron, builder => builder.WithMisfireHandlingInstructionDoNothing()));
     }
 
     public static void AddJobsAndTriggerAll(
@@ -38,27 +38,25 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         IConfiguration config)
     {
         var serviceAssembly = Assembly.Load("simple-quartz-job");
-        
+
         var jobTypes = serviceAssembly.GetTypes()
             .Where(allTypes =>
-                allTypes.GetInterfaces()
-                    .Any(type => 
-                        string.Equals(type.Name, nameof(IJob))));
-        
+                typeof(BaseJob).IsAssignableFrom(allTypes)
+                && allTypes.IsAbstract == false);
+
         var baseMethod = typeof(ServiceCollectionQuartzConfiguratorExtensions).GetMethod(
             nameof(AddJobAndTrigger));
-        
+
         if (baseMethod is null)
         {
             throw new ApplicationException(
                 $"Cannot find method {nameof(AddJobAndTrigger)} in {nameof(ServiceCollectionQuartzConfiguratorExtensions)} class");
         }
-        
+
         foreach (var job in jobTypes)
         {
             var genericMethod = baseMethod.MakeGenericMethod(job);
             genericMethod.Invoke(null, new object?[] { quartz, config });
-            
         }
     }
 }

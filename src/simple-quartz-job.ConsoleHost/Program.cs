@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Configuration;
+using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,11 +30,12 @@ public class Program
                 services.AddQuartz(quartz =>
                 {
                     quartz.SchedulerId = string.IsNullOrEmpty(hostContext.Configuration["Quartz:Scheduler:Id"])
-                        ? $"{hostContext.Configuration["Quartz:Scheduler:Id"]}-{Environment.ProcessId}"
+                        ? $"{hostContext.Configuration["Quartz:Scheduler:Id"]}-{Environment.MachineName}"
                         : $"{Process.GetCurrentProcess().MainModule?.ModuleName}";
                     quartz.InterruptJobsOnShutdownWithWait = true;
                     quartz.MisfireThreshold = new TimeSpan(60000);
                     quartz.MaxBatchSize = 5;
+                    quartz.UseTimeZoneConverter();
                     quartz.UseMicrosoftDependencyInjectionJobFactory();
                     quartz.UseSimpleTypeLoader();
                     quartz.UseInMemoryStore();
