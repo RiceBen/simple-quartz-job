@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple-quartz-job.ConsoleHost", "simple-quartz-job.ConsoleHost\simple-quartz-job.ConsoleHost.csproj", "{116765A6-FE45-4CE2-9B5F-9AB2B629A0A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{2434371D-11CF-41EB-BBAF-4A325179BDFC}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\Dockerfile = ..\build\Dockerfile
+		..\build\.dockerignore = ..\build\.dockerignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{7317A28E-A864-4BD6-8284-3C7E9A5B9D0B}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\deployment.yml = ..\deploy\deployment.yml
+		..\deploy\ingress.yml = ..\deploy\ingress.yml
+		..\deploy\service.yml = ..\deploy\service.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple-quartz-job", "simple-quartz-job\simple-quartz-job.csproj", "{758DA2FD-56EB-4BDB-935B-C0A28218BE2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{116765A6-FE45-4CE2-9B5F-9AB2B629A0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116765A6-FE45-4CE2-9B5F-9AB2B629A0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116765A6-FE45-4CE2-9B5F-9AB2B629A0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116765A6-FE45-4CE2-9B5F-9AB2B629A0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758DA2FD-56EB-4BDB-935B-C0A28218BE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758DA2FD-56EB-4BDB-935B-C0A28218BE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758DA2FD-56EB-4BDB-935B-C0A28218BE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758DA2FD-56EB-4BDB-935B-C0A28218BE2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
