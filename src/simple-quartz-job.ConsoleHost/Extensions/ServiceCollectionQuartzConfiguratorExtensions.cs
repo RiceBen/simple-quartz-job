@@ -16,10 +16,7 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
 
         var jobSettings = config.GetSection(configKey).Get<QuartzSetting>();
 
-        if (jobSettings is null)
-        {
-            throw new Exception($"No Cron schedule found for job in configuration at {configKey}");
-        }
+        if (jobSettings is null) throw new Exception($"No Cron schedule found for job in configuration at {configKey}");
 
         var jobKey = new JobKey(jobName);
         quartz.AddJob<T>(opts =>
