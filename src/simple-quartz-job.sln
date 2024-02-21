@@ -13,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A7283A28-7581-4471-A378-667EDCA4D04A}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\dependabot.yml = ..\.github\dependabot.yml
+		..\.github\workflows\codeql_analyze.yml = ..\.github\workflows\codeql_analyze.yml
 	EndProjectSection
 EndProject
 Global
