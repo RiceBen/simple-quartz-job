@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 8.0.x
         cache: true
     - name: Restore dependencies
-      run: dotnet restore src/simple-quartz-job.sln --locked-mode
+      run: dotnet restore src/simple-quartz-job.sln
     - name: Build
       run: dotnet build --no-restore src/simple-quartz-job.sln
     - name: Test
