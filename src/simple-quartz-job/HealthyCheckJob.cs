@@ -17,7 +17,7 @@ public class HealthyCheckJob : BaseJob
     protected override async Task ExecuteCore(IJobExecutionContext context, DateTime executionTime)
     {
         _logger.LogInformation(
-            $"[{DateTime.UtcNow.ToString("u")}][{await _serviceProvider.GetServiceName()}][{context.Trigger.JobKey}] Healthy.");
+            $"[{DateTime.UtcNow:u}][{await _serviceProvider.GetServiceName()}][{context.Trigger.JobKey}] Healthy.");
 
         await Task.CompletedTask;
     }

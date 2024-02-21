@@ -12,28 +12,29 @@ public abstract class BaseJob : IJob
         Logger = logger;
     }
 
-    protected abstract Task ExecuteCore(IJobExecutionContext context, DateTime executionTime);
-
     public async Task Execute(IJobExecutionContext context)
     {
         if (context.CancellationToken.IsCancellationRequested)
         {
             Logger.LogInformation(
-                $"[{this.GetType().Name}] is going to stop.");
+                $"[{GetType().Name}] is going to stop.");
             return;
         }
 
         var currentTime = DateTime.UtcNow;
-        
+
         try
         {
-            Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] StartTime:{currentTime:u}");
+            Logger.LogInformation($"[{GetType().Name}][{currentTime.Hour}] StartTime:{currentTime:u}");
             await ExecuteCore(context, currentTime);
-            Logger.LogInformation($"[{this.GetType().Name}][{currentTime.Hour}] EndTime: {DateTime.UtcNow:u}, Time duration: {(DateTime.UtcNow-currentTime).TotalMilliseconds}");
+            Logger.LogInformation(
+                $"[{GetType().Name}][{currentTime.Hour}] EndTime: {DateTime.UtcNow:u}, Time duration: {(DateTime.UtcNow - currentTime).TotalSeconds} sec.");
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, $"[{this.GetType().Name}] Exception occurred while executing job.");
+            Logger.LogError(ex, $"[{GetType().Name}] Exception occurred while executing job.");
         }
     }
+
+    protected abstract Task ExecuteCore(IJobExecutionContext context, DateTime executionTime);
 }

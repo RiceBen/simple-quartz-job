@@ -1,8 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Quartz;
-using Quartz.Logging;
-using simple_quartz_job.ConsoleHost.Models;
 
 namespace simple_quartz_job.ConsoleHost.Extensions;
 
@@ -39,12 +36,12 @@ public static class ServiceCollectionQuartzConfiguratorExtensions
         this IServiceCollectionQuartzConfigurator quartz,
         IConfiguration config)
     {
-        var serviceAssembly = Assembly.Load("simple-quartz-job");
+        var serviceAssembly = typeof(BaseJob).Assembly;
 
         var jobTypes = serviceAssembly.GetTypes()
             .Where(allTypes =>
                 typeof(BaseJob).IsAssignableFrom(allTypes)
-                && allTypes.IsAbstract == false);
+                && allTypes.IsAbstract is false);
 
         var baseMethod = typeof(ServiceCollectionQuartzConfiguratorExtensions).GetMethod(
             nameof(AddJobAndTrigger));

@@ -1,6 +1,6 @@
 ﻿namespace simple_quartz_job;
 
-public class DemoServiceProvider:IServiceProvider
+public class DemoServiceProvider : IServiceProvider
 {
     public async Task<string> GetServiceName()
     {
